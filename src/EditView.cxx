@@ -996,7 +996,7 @@ void EditView::DrawEOL(Surface *surface, const EditModel &model, const ViewStyle
 					ctrlChar = repr->stringRep.c_str();
 					eolPos = ll->numCharsInLine;
 				} else {
-					sprintf(hexits, "x%2X", chEOL);
+					snprintf(hexits, sizeof(hexits), "x%2X", chEOL);
 					ctrlChar = hexits;
 				}
 			}

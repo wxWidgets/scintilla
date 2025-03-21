@@ -379,16 +379,21 @@ void MarginView::PaintMargin(Surface *surface, Sci::Line topLine, PRectangle rc,
 							char number[100] = "";
 							if (model.foldFlags & SC_FOLDFLAG_LEVELNUMBERS) {
 								const int lev = model.pdoc->GetLevel(lineDoc);
-								sprintf(number, "%c%c %03X %03X",
-									(lev & SC_FOLDLEVELHEADERFLAG) ? 'H' : '_',
-									(lev & SC_FOLDLEVELWHITEFLAG) ? 'W' : '_',
-									LevelNumber(lev),
-									lev >> 16
-									);
-							} else {
+                                                                snprintf(
+                                                                    number, sizeof(number),
+                                                                    "%c%c %03X %03X",
+                                                                    (lev & SC_FOLDLEVELHEADERFLAG)
+                                                                        ? 'H'
+                                                                        : '_',
+                                                                    (lev & SC_FOLDLEVELWHITEFLAG)
+                                                                        ? 'W'
+                                                                        : '_',
+                                                                    LevelNumber(lev), lev >> 16);
+                                                        } else {
 								const int state = model.pdoc->GetLineState(lineDoc);
-								sprintf(number, "%0X", state);
-							}
+                                                                snprintf(number, sizeof(number),
+                                                                         "%0X", state);
+                                                        }
 							sNumber = number;
 						}
 						PRectangle rcNumber = rcMarker;
